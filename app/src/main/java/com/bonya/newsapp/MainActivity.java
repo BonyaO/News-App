@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             String webpage = article.getWebUrl();
             Uri uri = Uri.parse(webpage);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            if(intent.resolveActivity(getPackageManager()) != null){
+            if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
-            }else {
+            } else {
                 Log.d(TAG, "onItemClicked: Can't handle this");
             }
         }
@@ -55,21 +55,20 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         articleRecView = findViewById(R.id.news_articles_rec_view);
         mProgressBar = findViewById(R.id.pb_loading);
         errorLoadingContentTV = findViewById(R.id.tv_error);
         mProgressBar.setVisibility(View.VISIBLE);
-        
+
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
         // Get details on the currently active default data network
         NetworkInfo networkInfo = null;
-            if (connMgr != null) {
-                networkInfo = connMgr.getActiveNetworkInfo();
-            }
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
 
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
@@ -84,23 +83,23 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             articleRecView.setVisibility(View.GONE);
             //Set the error message text view visible
             errorLoadingContentTV.setVisibility(View.VISIBLE);
-
         }
 
     }
 
     /**
      * Performs a reload of news items based on what the user enter on the searchView
+     *
      * @param query
      * @return
      */
     @Override
     public boolean onQueryTextSubmit(String query) {
-            searchString = query;
-            errorLoadingContentTV.setVisibility(View.GONE);
-            articleRecView.setVisibility(View.GONE);
-            mProgressBar.setVisibility(View.VISIBLE);
-            getSupportLoaderManager().restartLoader(NEWS_ARTICLE_LOADER_ID,null, this);
+        searchString = query;
+        errorLoadingContentTV.setVisibility(View.GONE);
+        articleRecView.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.VISIBLE);
+        getSupportLoaderManager().restartLoader(NEWS_ARTICLE_LOADER_ID, null, this);
         return false;
     }
 
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         //Check if the data loaded from the internet is not null, we update the UI if the there are some
         //news articles returned from the request
-        if(data != null) {
+        if (data != null) {
             mArticles.clear();
             mArticles.addAll(data);
             NewsArticleAdapter newsArticleAdapter = new NewsArticleAdapter(mArticles, mListener);
@@ -143,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
             articleRecView.setLayoutManager(manager);
         }
-
     }
 
     @Override

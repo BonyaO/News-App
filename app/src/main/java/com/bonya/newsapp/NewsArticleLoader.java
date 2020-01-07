@@ -14,14 +14,16 @@ import java.util.ArrayList;
 
 class NewsArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
     private static final String TAG = NewsArticleLoader.class.getName();
-    /** Query URL */
-    private  String searchString;
+    /**
+     * Query URL
+     */
+    private String searchString;
 
     /**
      * Constructs a new {@link NewsArticleLoader}.
      *
      * @param context of the activity
-     * @param url to load data from
+     * @param url     to load data from
      */
     public NewsArticleLoader(@NonNull Context context, String url) {
         super(context);
@@ -34,21 +36,20 @@ class NewsArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
     }
 
     /**
-     *
      * @return an ArrayList of Articles fetched from the Guardian api, this list is passed to the onLoadFinished() method
      */
     @Nullable
     @Override
     public ArrayList<Article> loadInBackground() {
         String result = null;
-         if(searchString == null){
+        if (searchString == null) {
             return null;
-            }
-         try {
-              result = ApiUtil.getJson(ApiUtil.buildUrl(searchString));
-         } catch (IOException e){
-             Log.e(TAG, "loadInBackground: Error loading data", e);
-         }
+        }
+        try {
+            result = ApiUtil.getJson(ApiUtil.buildUrl(searchString));
+        } catch (IOException e) {
+            Log.e(TAG, "loadInBackground: Error loading data", e);
+        }
         return ApiUtil.getArticlesFromJson(result);
     }
 }
