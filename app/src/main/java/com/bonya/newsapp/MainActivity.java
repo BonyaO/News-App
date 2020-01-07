@@ -28,16 +28,15 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<ArrayList<Article>> {
 
-    public final static String TAG = MainActivity.class.getName();
+    private final static String TAG = MainActivity.class.getName();
     //we set loader id to enable us to reuse a loader once it is created
     private static final int NEWS_ARTICLE_LOADER_ID = 1;
-    RecyclerView articleRecView;
-    ProgressBar mProgressBar;
-    TextView errorLoadingContentTV;
-    ArrayList<Article> mArticles = new ArrayList<>();
-    String searchString = "software";
-    private NewsArticleAdapter mNewsArticleAdapter;
-    NewsArticleAdapter.OnItemClickedListener mListener = new NewsArticleAdapter.OnItemClickedListener() {
+    private RecyclerView articleRecView;
+    private ProgressBar mProgressBar;
+    private TextView errorLoadingContentTV;
+    private ArrayList<Article> mArticles = new ArrayList<>();
+    private String searchString = "software";
+    private NewsArticleAdapter.OnItemClickedListener mListener = new NewsArticleAdapter.OnItemClickedListener() {
         @Override
         public void onItemClicked(Article article) {
             String webpage = article.getWebUrl();
@@ -139,8 +138,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         if(data != null) {
             mArticles.clear();
             mArticles.addAll(data);
-            mNewsArticleAdapter = new NewsArticleAdapter(mArticles, mListener);
-            articleRecView.setAdapter(mNewsArticleAdapter);
+            NewsArticleAdapter newsArticleAdapter = new NewsArticleAdapter(mArticles, mListener);
+            articleRecView.setAdapter(newsArticleAdapter);
             LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
             articleRecView.setLayoutManager(manager);
         }

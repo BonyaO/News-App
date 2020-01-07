@@ -17,16 +17,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ApiUtil {
+class ApiUtil {
     private ApiUtil(){}
 
-    public static final String BASE_API_URL =
+    private static final String BASE_API_URL =
             "https://content.guardianapis.com/search?";
-    public static final String QUERY_PARAMETER_KEY = "q";
-    public static final String KEY = "api-key";
-    public static final String API_KEY = "c44e243d-ed31-461f-81ec-4d9ef0417bb1";
-    public static final String PAGE_SIZE = "page-size";
-    public static final String TAG = ApiUtil.class.getName();
+    private static final String QUERY_PARAMETER_KEY = "q";
+    private static final String KEY = "api-key";
+    private static final String API_KEY = "c44e243d-ed31-461f-81ec-4d9ef0417bb1";
+    private static final String PAGE_SIZE = "page-size";
+    private static final String TAG = ApiUtil.class.getName();
 
     /**
      * Build a valid URL from a search String using a Uri builder.

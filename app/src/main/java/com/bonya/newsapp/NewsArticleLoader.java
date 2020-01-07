@@ -12,10 +12,10 @@ import com.bonya.newsapp.model.Article;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class NewsArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
+class NewsArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
     private static final String TAG = NewsArticleLoader.class.getName();
     /** Query URL */
-    private String mUrl;
+    private  String searchString;
 
     /**
      * Constructs a new {@link NewsArticleLoader}.
@@ -25,7 +25,7 @@ public class NewsArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
      */
     public NewsArticleLoader(@NonNull Context context, String url) {
         super(context);
-        mUrl = url;
+        searchString = url;
     }
 
     @Override
@@ -41,11 +41,11 @@ public class NewsArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
     @Override
     public ArrayList<Article> loadInBackground() {
         String result = null;
-         if(mUrl == null){
+         if(searchString == null){
             return null;
             }
          try {
-              result = ApiUtil.getJson(ApiUtil.buildUrl(mUrl));
+              result = ApiUtil.getJson(ApiUtil.buildUrl(searchString));
          } catch (IOException e){
              Log.e(TAG, "loadInBackground: Error loading data", e);
          }
